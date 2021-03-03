@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    build:
+      context: . # building context directory
+      dockerfile: Dockerfile.dev # alternative file for Dockerfile
+    ports:
+      - "3000:3000" #port mapping for service from local machine : to container machine
+    volumes:
+      - /app/node_modules # put a bookmark on container node_modules folder
+      - .:/app # map current directory into /app folder in container
+  tests:
+    build:
+      context: . # building context directory
+      dockerfile: Dockerfile.dev # alternative file for Dockerfile
+    volumes:
+      - /app/node_modules # put a bookmark on container node_modules folder
+      - .:/app # map current directory into /app folder in container
+    command: ["npm", "run", "test"]
